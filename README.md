@@ -9,7 +9,7 @@ Real time google image scraper. The process is automated by sending HTTP request
 ## Scrape Google Images using Oxylabs’ Google Images Scraper API
 
 
-For this tutorial, we will use (Google Images Search API)[https://oxylabs.io/products/scraper-api/serp/google/images] to get the Google images related to the one given in the query. This API helps us retrieve all the related images and the URLs (where these images are hosted).  
+For this tutorial, we will use [Google Images Search API](https://oxylabs.io/products/scraper-api/serp/google/images) to get the Google images related to the one given in the query. This API helps us retrieve all the related images and the URLs (where these images are hosted).  
 
 To use this API, you must create an account on Oxylabs and get the API credentials. These credentials will be used in the later stages.
 
