@@ -6,7 +6,7 @@
 
 ## Scrape Google Images using Oxylabs’ Google Images Scraper API
 
-You can also scrape public Google Images data with  [Google Images Search API](https://oxylabs.io/products/scraper-api/serp/google/images). Keep in mind that this is a paid tool but you may get a free 7-day trial. Once you get a trial or a subscription, to use this API, you must create a user account on the Oxylabs dashboard and get the API credentials. These credentials will be used in the later stages.
+You can also scrape public Google Images data with [Google Images Search API](https://oxylabs.io/products/scraper-api/serp/google/images). Keep in mind that this is a paid tool but you may get a free 7-day trial. Once you get the trial (or a subscription), you'll have to create a user account on the Oxylabs dashboard and get the API credentials. These credentials will be used in the later stages.
 
 ## Step 1 - Setting up the environment
 
@@ -56,7 +56,7 @@ payload = {
 
 }
 ```
-Make sure to replace the ```query``` parameter value with the required search image URL. 
+NOTE: Make sure to replace the ```query``` parameter value with the required search image URL. 
 
 The ```context``` parameter is used to apply some search filters. For example, our search operators force the API to scrape only the links from Google image search results that belong to ```example.com```. If you remove this site key from the ```search_operators```, the Image Scraper API may return related results from all the websites.
 
@@ -77,11 +77,11 @@ response = requests.request(
 )
 ```
 
-Make sure to replace ```username``` and ```password``` with your API credentials. The response received can be viewed in the JSON format. 
+NOTE: Make sure to replace ```username``` and ```password``` with your API credentials. The response received can be viewed in the JSON format. 
 
 ## Step 5 - Extract the data and save it in a CSV file
 
-We can extract the required images from the response object. The response object has a key ```results``` that contains all the related image data. We will extract and save all the image data in the data frame. Later, this dataframe can be saved in a CSV file using the following code.
+Now, we can extract the required images from the response object. The response object has a key ```results``` that contains all the related image data. We will extract and save all the image data in the data frame. Later, this dataframe can be saved in a CSV file using the following code.
 
 ```result = response.json()["results"][0]["content"]
 image_results = result["results"]["organic"]
@@ -173,11 +173,7 @@ Here is what our output looks like:
 
 <img width="812" alt="image" src="https://github.com/oxylabs/how-to-scrape-google-images/assets/103110131/62ffaeeb-197d-40e4-93bd-3d7d6c9103f3">
 
-The complete API response for this API request can be found [here](https://pastebin.com/sKJF12g9).
-
-## Conclusion
-
-Scraping Google Images without a dedicated tool is a complex task. As such, since Google Images as a repository offers a vast and diverse collection that's invaluable for various applications and analyses, implementing a solution like Oxylabs Google Images Scraper API can be key.
+The complete API response for this API request can be found [here](https://pastebin.com/sKJF12g9). 
 
 Looking to scrape data from other Google sources? See our in-depth guides for scraping [Jobs](https://oxylabs.io/blog/how-to-scrape-google-jobs), [Search](https://oxylabs.io/blog/how-to-scrape-google-search-results), [Scholar](https://oxylabs.io/blog/how-to-scrape-google-scholar), [Trends](https://oxylabs.io/blog/how-to-scrape-google-trends), [News](https://oxylabs.io/blog/how-to-scrape-google-news), [Flights](https://oxylabs.io/blog/how-to-scrape-google-flights), [Shopping](https://oxylabs.io/blog/how-to-scrape-google-shopping-results), and [Maps](https://oxylabs.io/blog/how-to-scrape-google-maps).
 
