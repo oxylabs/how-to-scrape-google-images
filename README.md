@@ -4,14 +4,9 @@
 
 [![](https://dcbadge.vercel.app/api/server/eWsVUJrnG5)](https://discord.gg/GbxmdGhZjq)
 
-Real time google image scraper. The process is automated by sending HTTP requests to retrieve image data which is then parsed and saved. 
-
 ## Scrape Google Images using Oxylabs’ Google Images Scraper API
 
-
-For this tutorial, we will use [Google Images Search API](https://oxylabs.io/products/scraper-api/serp/google/images) to get the Google images related to the one given in the query. This API helps us retrieve all the related images and the URLs (where these images are hosted).  
-
-To use this API, you must create an account on Oxylabs and get the API credentials. These credentials will be used in the later stages.
+You can also scrape public Google Images data with  [Google Images Search API](https://oxylabs.io/products/scraper-api/serp/google/images). Keep in mind that this is a paid tool but you may get a free 7-day trial. Once you get a trial or a subscription, to use this API, you must create a user account on the Oxylabs dashboard and get the API credentials. These credentials will be used in the later stages.
 
 ## Step 1 - Setting up the environment
 
