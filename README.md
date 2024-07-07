@@ -14,13 +14,13 @@ To get started, we must have Python 3.6+ installed and running on your system. A
 
 - requests - for sending HTTP requests to Oxylabs API.
 
-- Pandas - for saving our output data in dataframes and saving in CSV files. 
+- Pandas - for saving our output data in dataframes and saving in CSV files.
 
 To install these packages, we can use the following command:
 
 ```pip install requests pandas ```
 
-Running this command will install all the required packages. 
+Running this command will install all the required packages.
 
 ## Step 2- Import the required libraries
 
@@ -31,7 +31,7 @@ After the installation of packages, start by creating a new Python file and impo
 
 ## Step 3 - Structure the payload
 
-The Oxylabs Image Scraper API has some parameters that can be set to structure the payload and make the request accordingly. The details of these parameters can be found in the official [documentation](https://developers.oxylabs.io/scraper-apis/serp-scraper-api/google/images?_gl=1*1kgcw2x*_gcl_aw*R0NMLjE3MDk4MjEyOTguQ2p3S0NBaUE2S1d2QmhBUkVpd0FGUFpNN25wc2s1OWgtcW9lRWlzX0I4aDVvVWlMeGdtaUtxSk9BNDY5Nm9rbkhhVEYxSGV1WHdZTXRob0NWZVVRQXZEX0J3RQ..*_gcl_au*MTY0ODg5MzY2Ni4xNzEzNzY4NDc1LjU2NzE3MzM0My4xNzE1MjU3NTEwLjE3MTUyNTc1MDk.) by Oxylabs. 
+The Oxylabs Image Scraper API has some parameters that can be set to structure the payload and make the request accordingly. The details of these parameters can be found in the official [documentation](https://developers.oxylabs.io/scraper-apis/serp-scraper-api/google/images?_gl=1*1kgcw2x*_gcl_aw*R0NMLjE3MDk4MjEyOTguQ2p3S0NBaUE2S1d2QmhBUkVpd0FGUFpNN25wc2s1OWgtcW9lRWlzX0I4aDVvVWlMeGdtaUtxSk9BNDY5Nm9rbkhhVEYxSGV1WHdZTXRob0NWZVVRQXZEX0J3RQ..*_gcl_au*MTY0ODg5MzY2Ni4xNzEzNzY4NDc1LjU2NzE3MzM0My4xNzE1MjU3NTEwLjE3MTUyNTc1MDk.) by Oxylabs.
 
 The payload is structured as follows:
 
@@ -56,7 +56,7 @@ payload = {
 
 }
 ```
-NOTE: Make sure to replace the ```query``` parameter value with the required search image URL. 
+NOTE: Make sure to replace the ```query``` parameter value with the required search image URL.
 
 The ```context``` parameter is used to apply some search filters. For example, our search operators force the API to scrape only the links from Google image search results that belong to ```example.com```. If you remove this site key from the ```search_operators```, the Image Scraper API may return related results from all the websites.
 
@@ -77,7 +77,7 @@ response = requests.request(
 )
 ```
 
-NOTE: Make sure to replace ```username``` and ```password``` with your API credentials. The response received can be viewed in the JSON format. 
+NOTE: Make sure to replace ```username``` and ```password``` with your API credentials. The response received can be viewed in the JSON format.
 
 ## Step 5 - Extract the data and save it in a CSV file
 
@@ -173,9 +173,6 @@ Here is what our output looks like:
 
 <img width="812" alt="image" src="https://github.com/oxylabs/how-to-scrape-google-images/assets/103110131/62ffaeeb-197d-40e4-93bd-3d7d6c9103f3">
 
-The complete API response for this API request can be found [here](https://pastebin.com/sKJF12g9). 
+The complete API response for this API request can be found [here](https://pastebin.com/sKJF12g9).
 
 Looking to scrape data from other Google sources? See our in-depth guides for scraping [Jobs](https://oxylabs.io/blog/how-to-scrape-google-jobs), [Search](https://oxylabs.io/blog/how-to-scrape-google-search-results), [Scholar](https://oxylabs.io/blog/how-to-scrape-google-scholar), [Trends](https://oxylabs.io/blog/how-to-scrape-google-trends), [News](https://oxylabs.io/blog/how-to-scrape-google-news), [Flights](https://oxylabs.io/blog/how-to-scrape-google-flights), [Shopping](https://oxylabs.io/blog/how-to-scrape-google-shopping-results), and [Maps](https://oxylabs.io/blog/how-to-scrape-google-maps).
-
-
-
