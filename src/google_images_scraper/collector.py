@@ -8,8 +8,8 @@ from typing import List
 
 import pandas as pd
 
-from google_images_scraper.scraper import GoogleImagesScraper
 from google_images_scraper.models import Image
+from google_images_scraper.scraper import GoogleImagesScraper
 
 
 DEFAULT_OUTPUT_FILE = "images.csv"

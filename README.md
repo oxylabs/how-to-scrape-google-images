@@ -20,9 +20,9 @@ Open up a terminal window, navigate to this repository and run this command:
 
 ### Getting an image to query
 
-First of all, find an image you want to query Google Images with. 
+First of all, find an image you want to query Google Images with.
 
-For this example, we'll be using an image of a cat from the Wikipedia page on cats. 
+For this example, we'll be using an image of a cat from the Wikipedia page on cats.
 
 Make sure to copy the direct image address, like this:
 
@@ -48,10 +48,10 @@ Make sure to surround the URL with quotation marks, otherwise the tool might hav
 
 After running the command, your terminal should look something like this:
 
-<img width="1160" alt="image" src="https://github.com/oxylabs/how-to-scrape-google-images/assets/44357929/5c7ff49a-c8a7-4728-915a-34e90ee2e1f0">  
+<img width="1160" alt="image" src="https://github.com/oxylabs/how-to-scrape-google-images/assets/44357929/5c7ff49a-c8a7-4728-915a-34e90ee2e1f0">
 
 
-After the tool has finished running, you should notice that an `images.csv` file appeared in your current directory. 
+After the tool has finished running, you should notice that an `images.csv` file appeared in your current directory.
 
 This data in this file has these columns for the Google Images results for your provided image:
 
