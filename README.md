@@ -4,6 +4,69 @@
 
 [![](https://dcbadge.vercel.app/api/server/eWsVUJrnG5)](https://discord.gg/GbxmdGhZjq)
 
+## Free Google Images Scraper
+
+A free tool used to get Google Images search results based on a provided image URL.
+
+### Prerequisites
+
+To run this tool, you need to have Python 3.11 installed in your system.
+
+### Installation
+
+Open up a terminal window, navigate to this repository and run this command:
+
+```make install```
+
+### Getting an image to query
+
+First of all, find an image you want to query Google Images with. 
+
+For this example, we'll be using an image of a cat from the Wikipedia page on cats. 
+
+Make sure to copy the direct image address, like this:
+
+<img width="437" alt="image" src="https://github.com/oxylabs/how-to-scrape-google-images/assets/44357929/6c086183-3bc2-4a37-ab47-ff797eb8b88c">
+
+The retrieved URL must end in `.jpg`, `.png`, or any other image format. Here's the URL of the copied image:
+
+https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Kittyply_edit1.jpg/440px-Kittyply_edit1.jpg
+
+Save the URL you copied, it will be used for scraping Google Images results based on that image.
+
+### Scraping Google Images
+
+To get results from Google Images based on an image URL, simply run this command in your terminal:
+
+```make scrape URL="<your_image_url>"```
+
+With the image URL we retrieved earlier, the command would look like this:
+
+```make scrape URL="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Kittyply_edit1.jpg/440px-Kittyply_edit1.jpg"```
+
+Make sure to surround the URL with quotation marks, otherwise the tool might have trouble parsing it.
+
+After running the command, your terminal should look something like this:
+
+<img width="1160" alt="image" src="https://github.com/oxylabs/how-to-scrape-google-images/assets/44357929/5c7ff49a-c8a7-4728-915a-34e90ee2e1f0">  
+
+
+After the tool has finished running, you should notice that an `images.csv` file appeared in your current directory. 
+
+This data in this file has these columns for the Google Images results for your provided image:
+
+- `title` - The title of the page the image was found on.
+- `image_url` - The static Google Images URL for that image.
+- `source_url` - The source URL of the page the image found on.
+
+Here's an example of how the data can look like:
+
+<img width="1479" alt="image" src="https://github.com/oxylabs/how-to-scrape-google-images/assets/44357929/1a11048c-746d-4770-bfac-78eb4c9dbf69">
+
+### Notes
+
+In case the code doesn't work or your project is of bigger scale, please refer to the second part of the tutorial. There, we showcase how to scrape public data with Oxylabs Scraper API.
+
 ## Scrape Google Images using Oxylabs’ Google Images Scraper API
 
 You can also scrape public Google Images data with [Google Images Search API](https://oxylabs.io/products/scraper-api/serp/google/images). Keep in mind that this is a paid tool but you may get a free 7-day trial. Once you get the trial (or a subscription), you'll have to create a user account on the Oxylabs dashboard and get the API credentials. These credentials will be used in the later stages.
