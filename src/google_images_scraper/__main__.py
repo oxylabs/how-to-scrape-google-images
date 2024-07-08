@@ -20,7 +20,7 @@ logging.basicConfig(level=logging.INFO)
 )
 def scrape_google_images(url: str) -> None:
     collector = GoogleImagesDataCollector()
-    collector.get_image_data_for_url(url)
+    collector.save_image_data_for_url(url)
 
 
 if __name__ == "__main__":

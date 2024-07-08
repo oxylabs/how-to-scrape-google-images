@@ -86,6 +86,10 @@ class GoogleImagesScraper:
 
         Returns:
             List[Image]: A list of Image objects.
+        Raises:
+            ConsentFormAcceptError: If the Google consent form cannot be accepted.
+            DriverInitializationError: If the Chrome webdriver cannot be initialized.
+            DriverGetImageDataError: If the image data cannot be scraped from the Google Images site.
         """
         self._logger.info(f"Retrieving images for {url}..")
 

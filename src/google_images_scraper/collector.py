@@ -34,9 +34,9 @@ class GoogleImagesDataCollector:
         df = pd.DataFrame(image_objects)
         df.to_csv(self._output_file)
 
-    def get_image_data_for_url(self, url: str) -> None:
+    def save_image_data_for_url(self, url: str) -> None:
         """
-        Queries and scrapes data from Google Images for a given image url.
+        Scrapes data from Google Images for a given image url and stores it into a CSV file.
 
         Args:
             url (str): The URL of the image for which to get Google Images results.
@@ -51,4 +51,5 @@ class GoogleImagesDataCollector:
         if not images:
             self._logger.info("No images found.")
             return
+
         self._save_to_csv(images)
