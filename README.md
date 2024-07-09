@@ -4,6 +4,69 @@
 
 [![](https://dcbadge.vercel.app/api/server/eWsVUJrnG5)](https://discord.gg/GbxmdGhZjq)
 
+## Free Google Images Scraper
+
+A free tool used to get Google Images search results based on a provided image URL.
+
+### Prerequisites
+
+To run this tool, you need to have Python 3.11 installed in your system.
+
+### Installation
+
+Open up a terminal window, navigate to this repository and run this command:
+
+```make install```
+
+### Getting an image to query
+
+First of all, find an image you want to query Google Images with.
+
+For this example, we'll be using an image of a cat from the Wikipedia page on cats.
+
+Make sure to copy the direct image address, like this:
+
+<img width="437" alt="image" src="https://github.com/oxylabs/how-to-scrape-google-images/assets/44357929/6c086183-3bc2-4a37-ab47-ff797eb8b88c">
+
+The retrieved URL must end in `.jpg`, `.png`, or any other image format. Here's the URL of the copied image:
+
+https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Kittyply_edit1.jpg/440px-Kittyply_edit1.jpg
+
+Save the URL you copied, it will be used for scraping Google Images results based on that image.
+
+### Scraping Google Images
+
+To get results from Google Images based on an image URL, simply run this command in your terminal:
+
+```make scrape URL="<your_image_url>"```
+
+With the image URL we retrieved earlier, the command would look like this:
+
+```make scrape URL="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Kittyply_edit1.jpg/440px-Kittyply_edit1.jpg"```
+
+Make sure to surround the URL with quotation marks, otherwise the tool might have trouble parsing it.
+
+After running the command, your terminal should look something like this:
+
+<img width="1160" alt="image" src="https://github.com/oxylabs/how-to-scrape-google-images/assets/44357929/5c7ff49a-c8a7-4728-915a-34e90ee2e1f0">
+
+
+After the tool has finished running, you should notice that an `images.csv` file appeared in your current directory.
+
+This data in this file has these columns for the Google Images results for your provided image:
+
+- `title` - The title of the page the image was found on.
+- `image_url` - The static Google Images URL for that image.
+- `source_url` - The source URL of the page the image found on.
+
+Here's an example of how the data can look like:
+
+<img width="1479" alt="image" src="https://github.com/oxylabs/how-to-scrape-google-images/assets/44357929/1a11048c-746d-4770-bfac-78eb4c9dbf69">
+
+### Notes
+
+In case the code doesn't work or your project is of bigger scale, please refer to the second part of the tutorial. There, we showcase how to scrape public data with Oxylabs Scraper API.
+
 ## Scrape Google Images using Oxylabs’ Google Images Scraper API
 
 You can also scrape public Google Images data with [Google Images Search API](https://oxylabs.io/products/scraper-api/serp/google/images). Keep in mind that this is a paid tool but you may get a free 7-day trial. Once you get the trial (or a subscription), you'll have to create a user account on the Oxylabs dashboard and get the API credentials. These credentials will be used in the later stages.
@@ -14,13 +77,13 @@ To get started, we must have Python 3.6+ installed and running on your system. A
 
 - requests - for sending HTTP requests to Oxylabs API.
 
-- Pandas - for saving our output data in dataframes and saving in CSV files. 
+- Pandas - for saving our output data in dataframes and saving in CSV files.
 
 To install these packages, we can use the following command:
 
 ```pip install requests pandas ```
 
-Running this command will install all the required packages. 
+Running this command will install all the required packages.
 
 ## Step 2- Import the required libraries
 
@@ -31,7 +94,7 @@ After the installation of packages, start by creating a new Python file and impo
 
 ## Step 3 - Structure the payload
 
-The Oxylabs Image Scraper API has some parameters that can be set to structure the payload and make the request accordingly. The details of these parameters can be found in the official [documentation](https://developers.oxylabs.io/scraper-apis/serp-scraper-api/google/images?_gl=1*1kgcw2x*_gcl_aw*R0NMLjE3MDk4MjEyOTguQ2p3S0NBaUE2S1d2QmhBUkVpd0FGUFpNN25wc2s1OWgtcW9lRWlzX0I4aDVvVWlMeGdtaUtxSk9BNDY5Nm9rbkhhVEYxSGV1WHdZTXRob0NWZVVRQXZEX0J3RQ..*_gcl_au*MTY0ODg5MzY2Ni4xNzEzNzY4NDc1LjU2NzE3MzM0My4xNzE1MjU3NTEwLjE3MTUyNTc1MDk.) by Oxylabs. 
+The Oxylabs Image Scraper API has some parameters that can be set to structure the payload and make the request accordingly. The details of these parameters can be found in the official [documentation](https://developers.oxylabs.io/scraper-apis/serp-scraper-api/google/images?_gl=1*1kgcw2x*_gcl_aw*R0NMLjE3MDk4MjEyOTguQ2p3S0NBaUE2S1d2QmhBUkVpd0FGUFpNN25wc2s1OWgtcW9lRWlzX0I4aDVvVWlMeGdtaUtxSk9BNDY5Nm9rbkhhVEYxSGV1WHdZTXRob0NWZVVRQXZEX0J3RQ..*_gcl_au*MTY0ODg5MzY2Ni4xNzEzNzY4NDc1LjU2NzE3MzM0My4xNzE1MjU3NTEwLjE3MTUyNTc1MDk.) by Oxylabs.
 
 The payload is structured as follows:
 
@@ -56,7 +119,7 @@ payload = {
 
 }
 ```
-NOTE: Make sure to replace the ```query``` parameter value with the required search image URL. 
+NOTE: Make sure to replace the ```query``` parameter value with the required search image URL.
 
 The ```context``` parameter is used to apply some search filters. For example, our search operators force the API to scrape only the links from Google image search results that belong to ```example.com```. If you remove this site key from the ```search_operators```, the Image Scraper API may return related results from all the websites.
 
@@ -77,7 +140,7 @@ response = requests.request(
 )
 ```
 
-NOTE: Make sure to replace ```username``` and ```password``` with your API credentials. The response received can be viewed in the JSON format. 
+NOTE: Make sure to replace ```username``` and ```password``` with your API credentials. The response received can be viewed in the JSON format.
 
 ## Step 5 - Extract the data and save it in a CSV file
 
@@ -173,9 +236,6 @@ Here is what our output looks like:
 
 <img width="812" alt="image" src="https://github.com/oxylabs/how-to-scrape-google-images/assets/103110131/62ffaeeb-197d-40e4-93bd-3d7d6c9103f3">
 
-The complete API response for this API request can be found [here](https://pastebin.com/sKJF12g9). 
+The complete API response for this API request can be found [here](https://pastebin.com/sKJF12g9).
 
 Looking to scrape data from other Google sources? See our in-depth guides for scraping [Jobs](https://oxylabs.io/blog/how-to-scrape-google-jobs), [Search](https://oxylabs.io/blog/how-to-scrape-google-search-results), [Scholar](https://oxylabs.io/blog/how-to-scrape-google-scholar), [Trends](https://oxylabs.io/blog/how-to-scrape-google-trends), [News](https://oxylabs.io/blog/how-to-scrape-google-news), [Flights](https://oxylabs.io/blog/how-to-scrape-google-flights), [Shopping](https://oxylabs.io/blog/how-to-scrape-google-shopping-results), and [Maps](https://oxylabs.io/blog/how-to-scrape-google-maps).
-
-
-
