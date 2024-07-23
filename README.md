@@ -4,6 +4,19 @@
 
 [![](https://dcbadge.vercel.app/api/server/eWsVUJrnG5)](https://discord.gg/GbxmdGhZjq)
 
+- [Free Google Images Scraper](#free-google-images-scraper)
+    + [Prerequisites](#prerequisites)
+    + [Installation](#installation)
+    + [Getting an image to query](#getting-an-image-to-query)
+    + [Scraping Google Images](#scraping-google-images)
+    + [Notes](#notes)
+- [Scrape public Google Images data with Oxylabs API](#scrape-public-google-images-data-with-oxylabs-api)
+    + [Step 1 - Setting up the environment](#step-1---setting-up-the-environment)
+    + [Step 2- Import the required libraries](#step-2--import-the-required-libraries)
+    + [Step 3 - Structure the payload](#step-3---structure-the-payload)
+    + [Step 4 - Make the request](#step-4---make-the-request)
+    + [Step 5 - Extract the data and save it in a CSV file](#step-5---extract-the-data-and-save-it-in-a-csv-file)
+
 ## Free Google Images Scraper
 
 A free tool used to get Google Images search results based on a provided image URL.
@@ -67,11 +80,11 @@ Here's an example of how the data can look like:
 
 In case the code doesn't work or your project is of bigger scale, please refer to the second part of the tutorial. There, we showcase how to scrape public data with Oxylabs Scraper API.
 
-## Scrape Google Images using Oxylabs’ Google Images Scraper API
+## Scrape public Google Images data with Oxylabs API 
 
 You can also scrape public Google Images data with [Google Images Search API](https://oxylabs.io/products/scraper-api/serp/google/images). Keep in mind that this is a paid tool but you may get a free 7-day trial. Once you get the trial (or a subscription), you'll have to create a user account on the Oxylabs dashboard and get the API credentials. These credentials will be used in the later stages.
 
-## Step 1 - Setting up the environment
+### Step 1 - Setting up the environment
 
 To get started, we must have Python 3.6+ installed and running on your system. Also, we need the following packages to put our code into action:
 
@@ -85,14 +98,14 @@ To install these packages, we can use the following command:
 
 Running this command will install all the required packages.
 
-## Step 2- Import the required libraries
+### Step 2- Import the required libraries
 
 After the installation of packages, start by creating a new Python file and import the required libraries using the following code:
 
 ```import requests```
 ```import pandas as pd```
 
-## Step 3 - Structure the payload
+### Step 3 - Structure the payload
 
 The Oxylabs Image Scraper API has some parameters that can be set to structure the payload and make the request accordingly. The details of these parameters can be found in the official [documentation](https://developers.oxylabs.io/scraper-apis/serp-scraper-api/google/images?_gl=1*1kgcw2x*_gcl_aw*R0NMLjE3MDk4MjEyOTguQ2p3S0NBaUE2S1d2QmhBUkVpd0FGUFpNN25wc2s1OWgtcW9lRWlzX0I4aDVvVWlMeGdtaUtxSk9BNDY5Nm9rbkhhVEYxSGV1WHdZTXRob0NWZVVRQXZEX0J3RQ..*_gcl_au*MTY0ODg5MzY2Ni4xNzEzNzY4NDc1LjU2NzE3MzM0My4xNzE1MjU3NTEwLjE3MTUyNTc1MDk.) by Oxylabs.
 
@@ -127,7 +140,7 @@ The search operators ```filetype:``` html and ```inurl:image``` define search cr
 
 The ```parse``` parameter is set to true to get the results parsed in the JSON format. Additionally, you can add pages and ```start_page``` parameters to the payload to scrape multiple result pages starting from the ```start_page```. A value of 1 is the default value for both the parameters.
 
-## Step 4 - Make the request
+### Step 4 - Make the request
 
 After creating the payload structure, you can initiate a POST request to Oxylabs’ API using the following code segment.
 
@@ -142,7 +155,7 @@ response = requests.request(
 
 NOTE: Make sure to replace ```username``` and ```password``` with your API credentials. The response received can be viewed in the JSON format.
 
-## Step 5 - Extract the data and save it in a CSV file
+### Step 5 - Extract the data and save it in a CSV file
 
 Now, we can extract the required images from the response object. The response object has a key ```results``` that contains all the related image data. We will extract and save all the image data in the data frame. Later, this dataframe can be saved in a CSV file using the following code.
 
