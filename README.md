@@ -83,6 +83,8 @@ In case the code doesn't work or your project is of bigger scale, please refer t
 ## Scrape public Google Images data with Oxylabs API 
 
 You can also scrape public Google Images data with [Google Images Search API](https://oxylabs.io/products/scraper-api/serp/google/images). Keep in mind that this is a paid tool but you may get a free 7-day trial. Once you get the trial (or a subscription), you'll have to create a user account on the Oxylabs dashboard and get the API credentials. These credentials will be used in the later stages.
+### Notes
+Different from the Free Google Image scraper, this particular scraper scrapes based on query, rather than the image URL. Get more information about this approach on our blog post on [How to Scrape Google Lens Results](https://oxylabs.io/blog/how-to-scrape-google-lens-results). 
 
 ### Step 1 - Setting up the environment
 
@@ -107,50 +109,48 @@ After the installation of packages, start by creating a new Python file and impo
 
 ### Step 3 - Structure the payload
 
-The Oxylabs Image Scraper API has some parameters that can be set to structure the payload and make the request accordingly. The details of these parameters can be found in the official [documentation](https://developers.oxylabs.io/scraper-apis/serp-scraper-api/google/images?_gl=1*1kgcw2x*_gcl_aw*R0NMLjE3MDk4MjEyOTguQ2p3S0NBaUE2S1d2QmhBUkVpd0FGUFpNN25wc2s1OWgtcW9lRWlzX0I4aDVvVWlMeGdtaUtxSk9BNDY5Nm9rbkhhVEYxSGV1WHdZTXRob0NWZVVRQXZEX0J3RQ..*_gcl_au*MTY0ODg5MzY2Ni4xNzEzNzY4NDc1LjU2NzE3MzM0My4xNzE1MjU3NTEwLjE3MTUyNTc1MDk.) by Oxylabs.
+The Google Image Scraper API has the ```source```, ```query```, and ```context``` parameters that are mandatory if you want to extract Google Images. All other parameters, such as ```geo_location```, ```parse```, and ```pages```, are optional and allow you to modify the result according to your needs. The details of these and other parameters can be found in the official [documentation](https://developers.oxylabs.io/scraping-solutions/web-scraper-api/targets/google/search/image-search). 
 
 The payload is structured as follows:
 
-```
+```python
+# Request payload with API parameters
 payload = {
-"source": "google_images",
-   "domain": "com",
-   "query": "<search_image_URL>",
-   "context": [
-       {
-           "key": "search_operators",
-           "value": [
-               {"key": "site", "value": "example.com"},
-               {"key": "filetype", "value": "html"},
-               {"key": "inurl", "value": "image"},
-           ],
-       }
-   ],
-   "parse": "true",
-   "geo_location": "United States"
-
-
+    "source": "google_search",
+    "query": "cute cat",
+    "geo_location": "United States", # Localize results for US
+    "context": [
+        {"key": "tbm", "value": "isch"}, # Scrapes only Google Images
+    ],
+    "parse": True, # Automatically parse HTML into JSON
+    "pages": 2 # Scrape as many pages as needed
 }
+
 ```
-NOTE: Make sure to replace the ```query``` parameter value with the required search image URL.
+NOTE: Make sure to replace the ```query``` parameter value with the search term for which you want to find relevant images.
 
-The ```context``` parameter is used to apply some search filters. For example, our search operators force the API to scrape only the links from Google image search results that belong to ```example.com```. If you remove this site key from the ```search_operators```, the Image Scraper API may return related results from all the websites.
+You may also use the Advanced Google Search Operators to filter results. For example, to find images that are only present on Unsplash, modify your ```query``` parameter value to ```cute cats inurl: unsplash```.
 
-The search operators ```filetype:``` html and ```inurl:image``` define search criteria to only retrieve results with a file type of HTML and where "image" is included in the URL.
-
-The ```parse``` parameter is set to true to get the results parsed in the JSON format. Additionally, you can add pages and ```start_page``` parameters to the payload to scrape multiple result pages starting from the ```start_page```. A value of 1 is the default value for both the parameters.
+The ```parse``` parameter is set to ```True``` to automatically parse the results and receive them in structured JSON format. Additionally, you can use ```pages``` and ```start_page``` parameters to scrape multiple result pages starting from the ```start_page```. A value of ```1``` is the default value for both the parameters.
 
 ### Step 4 - Make the request
 
 After creating the payload structure, you can initiate a POST request to Oxylabs’ API using the following code segment.
 
-```
-response = requests.request(
-   "POST",
+```python
+# Use your Oxylabs Web Scraper API credentials
+USERNAME = "your_API_username"
+PASSWORD = "your_API_password"
+
+# Send a request to Oxylabs Web Scraper API
+response = requests.post(
    "https://realtime.oxylabs.io/v1/queries",
    auth=(USERNAME, PASSWORD),
-   json=payload,
+   json=payload
 )
+
+# Print the response
+print(response.json())
 ```
 
 NOTE: Make sure to replace ```username``` and ```password``` with your API credentials. The response received can be viewed in the JSON format.
@@ -159,96 +159,88 @@ NOTE: Make sure to replace ```username``` and ```password``` with your API crede
 
 Now, we can extract the required images from the response object. The response object has a key ```results``` that contains all the related image data. We will extract and save all the image data in the data frame. Later, this dataframe can be saved in a CSV file using the following code.
 
-```result = response.json()["results"][0]["content"]
-image_results = result["results"]["organic"]
+```python
+# Get the response data
+response_data = response.json()
 
-# Create a DataFrame
-df = pd.DataFrame(columns=["Image Title", "Image Description", "Image URL"])
+all_images = []
+# Loop through each page in the results
+for page in response_data["results"]:
+    # Get the organic results from each page
+    organic_results = page["content"]["results"]["organic"]
+    # Extract image data from each organic result
+    for image in organic_results:
+        all_images.append({
+            "title": image.get("title", ""),
+            "link": image.get("link", ""),
+            "image": image.get("image", ""),
+            "domain": image.get("domain", ""),
+            "position": image.get("pos", ""),
+            "position_overall": image.get("pos_overall", "")
+        })
 
-for i in image_results:
-   title = i["title"]
-   description = i["desc"]
-   url = i["url"]
+# Create a DataFrame directly from the extracted data
+df = pd.DataFrame(all_images)
 
-   df = pd.concat(
-       [pd.DataFrame([[title, description, url]], columns=df.columns), df],
-       ignore_index=True,
-   )
-
-# Copy the data to CSV and JSON files
-df.to_csv("google_image_results.csv", index=False)
-df.to_json("google_image_results.json", orient="split", index=False)
+# Save to CSV
+df.to_csv("google_images.csv", index=False)
+print("Successfully saved all images.")
 ```
-Now, let's take an [example URL](https://upload.wikimedia.org/wikipedia/commons/a/a3/June_odd-eyed-cat.jpg) of a cat as the query image and put all the code together to make more cognitive sense. Assume that we want to scrape the first page from Google Images and want to restrict search to [wikipedia.org](http://wikipedia.org/) only.  Here is what the code looks like:
+This code saves only the ```organic``` search results. If you expect paid/sponsored image results, make sure to add logic that additionally saves the ```paid``` results from the API response.
 
-```
-# Import Required libraries
+## Complete Google Image scraper example
+
+Let’s put all the code together:
+
+```python
 import requests
 import pandas as pd
-from pprint import pprint
 
-# Set your Oxylabs API credentials
-USERNAME = "<your_username>"
-PASSWORD = "<your_password>"
 
-# Structure payload.
+USERNAME = "your_API_username"
+PASSWORD = "your_API_password"
+
 payload = {
-   "source": "google_images",
-   "domain": "com",
-   "query": "https://upload.wikimedia.org/wikipedia/commons/a/a3/June_odd-eyed-cat.jpg",
-   "context": [
-       {
-           "key": "search_operators",
-           "value": [
-               {"key": "site", "value": "wikipedia.org"},
-               {"key": "filetype", "value": "html"},
-               {"key": "inurl", "value": "image"},
-           ],
-       }
-   ],
-   "parse": "true",
-   "geo_location": "United States"
-
+    "source": "google_search",
+    "query": "cute cat",
+    "geo_location": "United States",
+    "context": [
+        {"key": "tbm", "value": "isch"},
+    ],
+    "parse": True,
+    "pages": 2
 }
 
-# Get response.
-response = requests.request(
-   "POST",
+response = requests.post(
    "https://realtime.oxylabs.io/v1/queries",
    auth=(USERNAME, PASSWORD),
-   json=payload,
+   json=payload
 )
 
-# Extract data from the response
-result = response.json()["results"][0]["content"]
-image_results = result["results"]["organic"]
+response_data = response.json()
 
-# Create a DataFrame
-df = pd.DataFrame(columns=["Image Title", "Image Description", "Image URL"])
+all_images = []
+for page in response_data["results"]:
 
-for i in image_results:
-   title = i["title"]
-   description = i["desc"]
-   url = i["url"]
+    organic_results = page["content"]["results"]["organic"]
 
-   df = pd.concat(
-       [pd.DataFrame([[title, description, url]], columns=df.columns), df],
-       ignore_index=True,
-   )
+    for image in organic_results:
+        all_images.append({
+            "title": image.get("title", ""),
+            "link": image.get("link", ""),
+            "image": image.get("image", ""),
+            "domain": image.get("domain", ""),
+            "position": image.get("pos", ""),
+            "position_overall": image.get("pos_overall", "")
+        })
 
-   # Print the data on the screen
-   print("Image Name: " + title)
-   print("Image Description: " + description)
-   print("Image URL: " + url)
-
-# Copy the data to CSV and JSON files
-df.to_csv("google_image_results.csv", index=False)
-df.to_json("google_image_results.json", orient="split", index=False)
+df = pd.DataFrame(all_images)
+df.to_csv("google_images.csv", index=False)
+print("Successfully saved all images.")
 ```
-Here is what our output looks like:
 
-<img width="812" alt="image" src="https://github.com/oxylabs/how-to-scrape-google-images/assets/103110131/62ffaeeb-197d-40e4-93bd-3d7d6c9103f3">
+Executing the code will output a CSV file that contains all the Google Image data scraped from two pages:
 
-The complete API response for this API request can be found [here](https://pastebin.com/sKJF12g9).
+<img width="2852" height="1426" alt="images_csv" src="https://github.com/user-attachments/assets/18b5688b-2444-4b47-8f8c-7b9aa5b6c6f7" />
 
 Looking to scrape data from other Google sources? [Google Sheets for Basic Web Scraping](https://github.com/oxylabs/web-scraping-google-sheets), [How to Scrape Google Shopping Results](https://github.com/oxylabs/scrape-google-shopping), [Google Play Scraper](https://github.com/oxylabs/google-play-scraper), [How To Scrape Google Jobs](https://github.com/oxylabs/how-to-scrape-google-jobs), [Google News Scrpaer](https://github.com/oxylabs/google-news-scraper), [How to Scrape Google Scholar](https://github.com/oxylabs/how-to-scrape-google-scholar), [How to Scrape Google Flights with Python](https://github.com/oxylabs/how-to-scrape-google-flights),  [Scrape Google Search Results](https://github.com/oxylabs/scrape-google-python), [Scrape Google Trends](https://github.com/oxylabs/how-to-scrape-google-trends)
