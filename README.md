@@ -131,7 +131,11 @@ NOTE: Make sure to replace the ```query``` parameter value with the search term 
 
 You may also use the Advanced Google Search Operators to filter results. For example, to find images that are only present on Unsplash, modify your ```query``` parameter value to ```cute cats inurl: unsplash```.
 
-The ```parse``` parameter is set to ```True``` to automatically parse the results and receive them in structured JSON format. Additionally, you can use ```pages``` and ```start_page``` parameters to scrape multiple result pages starting from the ```start_page```. A value of ```1``` is the default value for both the parameters.
+The ```parse``` parameter is set to ```True``` to automatically parse the results and receive them in structured JSON format. 
+
+Additionally, you can retireve your results in Markdown format by setting `markdown` parameter to `true`. This will give your and easy-to-read output for various workflows and AI tools.
+
+Furthermore, you can use ```pages``` and ```start_page``` parameters to scrape multiple result pages starting from the ```start_page```. A value of ```1``` is the default value for both the parameters.
 
 ### Step 4 - Make the request
 
