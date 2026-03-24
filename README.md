@@ -178,7 +178,6 @@ for page in response_data["results"]:
             "title": image.get("title", ""),
             "link": image.get("link", ""),
             "image": image.get("image", ""),
-            "domain": image.get("domain", ""),
             "position": image.get("pos", ""),
             "position_overall": image.get("pos_overall", "")
         })
@@ -233,7 +232,6 @@ for page in response_data["results"]:
             "title": image.get("title", ""),
             "link": image.get("link", ""),
             "image": image.get("image", ""),
-            "domain": image.get("domain", ""),
             "position": image.get("pos", ""),
             "position_overall": image.get("pos_overall", "")
         })
