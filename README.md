@@ -109,7 +109,7 @@ After the installation of packages, start by creating a new Python file and impo
 
 ### Step 3 - Structure the payload
 
-The Google Image Scraper API has the ```source```, ```query```, and ```context``` parameters that are mandatory if you want to extract Google Images. All other parameters, such as ```geo_location```, ```parse```, and ```pages```, are optional and allow you to modify the result according to your needs. The details of these and other parameters can be found in the official [documentation](https://developers.oxylabs.io/scraping-solutions/web-scraper-api/targets/google/search/image-search). 
+The Google Image Scraper API has the ```source```, ```query```, and ```context``` parameters that are mandatory if you want to extract Google Images. All other parameters, such as ```geo_location```, ```parse```, and ```pages```, are optional and allow you to modify the result according to your needs. The details of these and other parameters can be found in the official [documentation](https://developers.oxylabs.io/api-targets/search-engines/google/search/image-search). 
 
 The payload is structured as follows:
 
